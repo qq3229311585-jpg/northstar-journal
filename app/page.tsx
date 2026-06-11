@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { getAllPosts, parseBody } from "./lib/db-posts";
 import { diaryPosts, essayPosts, featuredPost } from "./content";
-import { TitleFullscreen } from "./components/TitleFullscreen";
 
 type DbPost = Awaited<ReturnType<typeof getAllPosts>>[number];
 
@@ -59,13 +58,11 @@ export default async function Home() {
       <section className="masthead">
         <div className="masthead-hero">
           <p className="section-kicker">北辰笔记 · 首页</p>
-          <TitleFullscreen>
-            <h1 className="masthead-title">
-              <span>做一个更安静的站，</span>
-              <span className="accent-line">让句子比界面</span>
-              <span className="accent-line">更先被记住.</span>
-            </h1>
-          </TitleFullscreen>
+          <h1 className="masthead-title">
+            <span>做一个更安静的站，</span>
+            <span className="accent-line">让句子比界面</span>
+            <span className="accent-line">更先被记住.</span>
+          </h1>
           <span className="masthead-deco" aria-hidden="true">01</span>
         </div>
 
