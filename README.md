@@ -1,70 +1,125 @@
-# vinext-starter
+# 北辰笔记 - 中文个人博客
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+一个基于 Next.js 16 + vinext 的克制式中文博客平台，采用 Cloudflare Workers 部署架构。
 
-## Prerequisites
+## 特性
 
-- Node.js `>=22.13.0`
+### 核心功能
+- 📝 **文章管理** - 分类为随笔(essay)和日记(diary)两种类型
+- 🎯 **全屏阅读** - 三种全屏模式
+  - 文章沉浸式阅读（隐藏导航和侧边栏）
+  - 首页标题全屏展示
+  - 整个网页全屏浏览
+- 🗂️ **数据库支持** - Cloudflare D1 + Drizzle ORM
+- 🔐 **管理后台** - `/admin` 路由支持文章编辑（需要认证）
+- 📱 **响应式设计** - 手机、平板、桌面端完美适配
 
-## Quick Start
+### 界面设计
+- 清爽的极简主义设计
+- 渐进式排版，重点突出
+- 底部 padding 优化（100px），按钮与屏幕边缘有舒适间距
+- 自定义焦点样式，移除蓝色轮廓框
+- 灵动的全屏过渡效果
+
+## 技术栈
+
+```
+前端框架:     Next.js 16 (App Router)
+运行时:       Cloudflare Workers (via vinext)
+数据库:       Cloudflare D1
+ORM:          Drizzle
+样式:         Tailwind CSS + 自定义 CSS
+字体:         ZCOOL XiaoWei (中文显示字) + IBM Plex Mono
+```
+
+## 项目结构
+
+```
+.
+├── app/
+│   ├── layout.tsx              # 全局布局和 Header
+│   ├── page.tsx                # 首页（带全屏标题）
+│   ├── about/page.tsx          # 关于页面
+│   ├── writing/page.tsx        # 文章列表
+│   ├── diary/page.tsx          # 日记列表
+│   ├── posts/[slug]/page.tsx   # 文章详情页
+│   ├── admin/                  # 管理后台
+│   │   ├── page.tsx            # 管理首页
+│   │   ├── posts/[slug]/edit/  # 编辑文章
+│   │   └── posts/new/          # 新建文章
+│   ├── api/admin/              # 管理 API
+│   │   ├── posts/route.ts      # 文章 CRUD
+│   │   └── seed/route.ts       # 数据库初始化
+│   ├── components/
+│   │   ├── FullscreenButton.tsx        # 文章全屏按钮
+│   │   ├── GlobalFullscreen.tsx        # 整体全屏按钮
+│   │   └── TitleFullscreen.tsx         # 标题全屏组件
+│   ├── lib/
+│   │   ├── db-posts.ts         # 数据库查询函数
+│   │   └── auth.ts             # 认证逻辑
+│   ├── content.ts              # 静态文章数据（VPS 备用）
+│   └── globals.css             # 全局样式
+├── drizzle/                     # 数据库 schema 和迁移
+├── .openai/hosting.json         # OpenAI Sites 配置
+├── start-server.mjs             # VPS 启动脚本
+└── package.json
+```
+
+## 快速开始
+
+### 开发环境
 
 ```bash
+# 安装依赖
 npm install
+
+# 启动开发服务器
 npm run dev
+
+# 构建生产版本
 npm run build
 ```
 
-This starter does not use `wrangler.jsonc`.
+## 部署指南
 
-## Included Shape
+详见 [DEPLOYMENT.md](./DEPLOYMENT.md)
 
-- edit site code under `app/`
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
+## 文章格式
 
-## Workspace Auth Headers
+文章数据结构：
 
-OpenAI workspace sites can read the current user's email from
-`oai-authenticated-user-email`.
-
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
-
-Treat the full name as optional and fall back to email when it is absent:
-
-```tsx
-import { headers } from "next/headers";
-
-export default async function Home() {
-  const requestHeaders = await headers();
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
-
-  const displayName = fullName ?? email;
-  // ...
-}
+```typescript
+type Post = {
+  slug: string;           // URL 路径
+  kind: "essay" | "diary"; // 类型
+  category: string;       // 分类
+  title: string;          // 标题
+  summary: string;        // 摘要
+  date: string;           // 日期
+  readTime: string;       // 阅读时长
+  kicker: string;         // 副标题标签
+  body: string[];         // 段落数组
+  featured?: boolean;     // 是否为首页主文章
+};
 ```
 
-## Useful Commands
+## 全屏功能使用说明
 
-- `npm run dev`: start local development
-- `npm run build`: verify the vinext build output
-- `npm run db:generate`: generate Drizzle migrations after schema changes
+### 1. 文章全屏阅读
+- 进入文章详情页，点击右上角 `⛶` 按钮
+- 隐藏导航栏、侧边栏，沉浸式阅读
+- 点击 `↙` 或按 ESC 键退出
 
-## Learn More
+### 2. 首页标题全屏
+- 在首页标题上悬停显示 `⛶` 按钮
+- 点击后标题放大到占满屏幕
+- 点击任意处或 `×` 按钮退出
 
-- [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+### 3. 整个网页全屏
+- 点击导航栏右上角 `⛶` 按钮
+- 网页铺满整个屏幕（隐藏浏览器工具栏）
+- 点击 `⛶ 退出` 或按 ESC 键退出
+
+---
+
+北辰笔记 © 2026
