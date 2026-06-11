@@ -1,49 +1,49 @@
 const featuredPost = {
-  category: "Field Note",
-  title: "What I Learned From Rebuilding a Bare-Metal Blog Instead of Tweaking It",
-  date: "June 11, 2026",
-  readTime: "8 min read",
+  category: "主文章",
+  title: "与其修补一个能用的旧博客，不如认真重做一个真正适合写作的版本",
+  date: "2026 年 6 月 11 日",
+  readTime: "阅读 8 分钟",
   summary:
-    "A resilient blog starts with structure: clean information design, stronger hosting assumptions, and enough atmosphere to make the writing feel intentional.",
+    "一个耐看的博客，靠的不是花哨组件，而是清楚的信息层次、稳定的发布结构，以及让文字愿意被认真读完的页面气质。",
 };
 
 const recentPosts = [
   {
     index: "01",
-    category: "Writing System",
-    title: "A calm homepage can still feel premium",
+    category: "写作系统",
+    title: "安静的首页，也可以很有质感",
     excerpt:
-      "Editorial hierarchy, generous spacing, and bolder typography outperform most template-heavy blog layouts.",
-    date: "June 09, 2026",
+      "真正撑起博客气质的，往往不是复杂功能，而是更好的排版节奏、留白和标题层级。",
+    date: "2026 年 6 月 9 日",
   },
   {
     index: "02",
-    category: "Infra",
-    title: "The quiet work behind a trustworthy personal site",
+    category: "站点架构",
+    title: "一个让人信任的个人网站，背后都有哪些安静的工作",
     excerpt:
-      "HTTPS, stable deploys, metadata, and predictable mobile behavior do more for credibility than decorative widgets.",
-    date: "June 04, 2026",
+      "HTTPS、稳定部署、元信息和移动端体验，往往比装饰性的模块更能提升整体可信度。",
+    date: "2026 年 6 月 4 日",
   },
   {
     index: "03",
-    category: "Notes",
-    title: "From one lonely post to a publishable archive",
+    category: "随笔记录",
+    title: "从一篇孤零零的文章，到一个愿意持续更新的归档",
     excerpt:
-      "A better blog is not only prettier. It helps future writing feel easier to draft, browse, and revisit.",
-    date: "May 28, 2026",
+      "更好的博客不只是更好看，它还会让未来的写作更容易开始、更方便整理，也更值得回看。",
+    date: "2026 年 5 月 28 日",
   },
 ];
 
 const principles = [
-  "Sharper reading rhythm with clearer category, date, and excerpt hierarchy.",
-  "Mobile-first spacing and responsive cards instead of desktop-only composition.",
-  "Stronger launch readiness with SEO metadata, icon support, and cleaner structure.",
+  "分类、日期、摘要层级更清楚，阅读节奏更顺。",
+  "优先照顾手机端浏览，不再只适合桌面宽屏。",
+  "补齐 SEO、图标和发布结构，站点完整度更高。",
 ];
 
 const archive = [
-  ["Essay", "On building slower, cleaner personal sites", "May 2026"],
-  ["Setup", "Why a rebuild beat patching the old Python service", "May 2026"],
-  ["Journal", "基础是无聊，无理由的无聊", "May 2026"],
+  ["长文", "慢一点，反而更像自己的个人网站", "2026 年 5 月"],
+  ["搭建", "为什么这次我选择重建，而不是继续修旧服务", "2026 年 5 月"],
+  ["手记", "基础是无聊，无理由的无聊", "2026 年 5 月"],
 ];
 
 export default function Home() {
@@ -53,29 +53,27 @@ export default function Home() {
         <div className="hero-backdrop" />
         <div className="hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow">Editorial Rebuild</p>
+            <p className="eyebrow">中文版重构</p>
             <h1>
-              A more memorable blog,
-              <span> rebuilt for reading instead of merely existing.</span>
+              一个更像样的中文博客，
+              <span> 不是能打开就行，而是值得认真阅读。</span>
             </h1>
             <p className="hero-summary">
-              This version turns the original bare service into a more polished
-              editorial site: better rhythm, clearer hierarchy, stronger launch
-              signals, and a homepage that feels like it belongs to a real
-              writer.
+              这次改版不是把旧页面换个皮，而是把它重做成更适合中文阅读的博客首页：
+              节奏更稳，层次更清楚，首屏更有内容感，也更像一个真正会持续写下去的个人站点。
             </p>
             <div className="hero-actions">
               <a href="#featured" className="primary-link">
-                Read the lead story
+                先看主文章
               </a>
               <a href="#archive" className="secondary-link">
-                Browse the archive
+                看看归档
               </a>
             </div>
           </div>
 
           <aside className="hero-panel">
-            <p className="panel-label">What changed</p>
+            <p className="panel-label">这次改了什么</p>
             <ul className="panel-list">
               {principles.map((item) => (
                 <li key={item}>{item}</li>
@@ -87,8 +85,8 @@ export default function Home() {
 
       <section className="featured-section" id="featured">
         <div className="section-heading">
-          <p className="eyebrow">Featured Story</p>
-          <h2>Lead with a point of view, not a pile of widgets.</h2>
+          <p className="eyebrow">主文章</p>
+          <h2>首页先表达观点，而不是先堆一排功能模块。</h2>
         </div>
 
         <article className="featured-card">
@@ -104,8 +102,8 @@ export default function Home() {
 
       <section className="recent-section">
         <div className="section-heading">
-          <p className="eyebrow">Recent Posts</p>
-          <h2>Designed to make new writing feel inevitable.</h2>
+          <p className="eyebrow">最近更新</p>
+          <h2>让新的写作更自然地出现，而不是总停在想法阶段。</h2>
         </div>
 
         <div className="recent-grid">
@@ -125,17 +123,16 @@ export default function Home() {
 
       <section className="split-section" id="archive">
         <div className="manifesto-card">
-          <p className="eyebrow">Publishing Direction</p>
-          <h2>Built for essays, notes, and small archives that age well.</h2>
+          <p className="eyebrow">写作方向</p>
+          <h2>适合长文、随笔和慢慢积累起来的小型归档。</h2>
           <p>
-            The new shell keeps the visuals expressive without drowning the
-            content. That makes it easier to grow this into a serious personal
-            blog instead of a one-page placeholder.
+            新的页面风格保留了足够的气质，但不会压住内容本身。这样它更容易从一个展示页，
+            长成一个真正能长期更新、长期回看的个人博客，而不是一张只放着一篇文章的门面。
           </p>
         </div>
 
         <div className="archive-card">
-          <p className="eyebrow">Archive Preview</p>
+          <p className="eyebrow">归档预览</p>
           <div className="archive-list">
             {archive.map(([type, title, month]) => (
               <div className="archive-row" key={title}>

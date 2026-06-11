@@ -19,17 +19,17 @@ const monoFont = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Northstar Journal",
+  title: "北辰笔记",
   description:
-    "An editorial-style personal blog rebuilt for stronger reading flow, cleaner structure, and a more intentional first impression.",
+    "一个重新设计的中文个人博客首页，强调阅读节奏、排版层次和更完整的发布体验。",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
   },
   openGraph: {
-    title: "Northstar Journal",
+    title: "北辰笔记",
     description:
-      "A rebuilt editorial blog with stronger hierarchy, atmosphere, and launch readiness.",
+      "一个更适合中文阅读的个人博客版本，层次更清楚，气质更完整。",
     type: "website",
   },
 };
@@ -40,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="zh-CN">
       <body
         className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}
       >
