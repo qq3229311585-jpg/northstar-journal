@@ -1,17 +1,13 @@
 import type { Metadata } from "next";
-import { Fraunces, IBM_Plex_Mono, Manrope } from "next/font/google";
+import Link from "next/link";
+import { IBM_Plex_Mono } from "next/font/google";
+import { site } from "./content";
+import { GlobalFullscreen } from "./components/GlobalFullscreen";
 import "./globals.css";
 
-const displayFont = Fraunces({
-  variable: "--font-display",
-  subsets: ["latin"],
-});
-
-const bodyFont = Manrope({
-  variable: "--font-body",
-  subsets: ["latin"],
-});
-
+// Only IBM Plex Mono goes through next/font (Latin-only, small).
+// ZCOOL XiaoWei and Noto Sans SC are loaded via CSS @import in globals.css
+// to avoid the server-side fetch failure inside Cloudflare Workers (miniflare).
 const monoFont = IBM_Plex_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
@@ -19,18 +15,26 @@ const monoFont = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "北辰笔记",
-  description:
-    "一个重新设计的中文个人博客首页，强调阅读节奏、排版层次和更完整的发布体验。",
+  metadataBase: new URL(site.url),
+  title: {
+    default: site.name,
+    template: `%s | ${site.name}`,
+  },
+  description: site.description,
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
   },
   openGraph: {
-    title: "北辰笔记",
-    description:
-      "一个更适合中文阅读的个人博客版本，层次更清楚，气质更完整。",
+    title: site.name,
+    description: site.description,
+    url: site.url,
+    siteName: site.name,
     type: "website",
+    locale: "zh_CN",
   },
 };
 
@@ -41,10 +45,44 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN">
-      <body
-        className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable}`}
-      >
-        {children}
+      <body className={monoFont.variable}>
+        <div className="site-frame">
+          <header className="site-header">
+            <div className="shell header-shell">
+              <Link href="/" className="brand">
+                <span className="brand-title">{site.name}</span>
+                <span className="brand-sub">把句子慢慢收起来</span>
+              </Link>
+
+              <nav className="site-nav" aria-label="主导航">
+                <Link href="/writing">文章</Link>
+                <Link href="/diary">摘页</Link>
+                <Link href="/about">关于</Link>
+              </nav>
+
+              <GlobalFullscreen />
+            </div>
+          </header>
+
+          {children}
+
+          <footer className="site-footer">
+            <div className="shell footer-shell">
+              <div>
+                <p className="footer-title">{site.name}</p>
+                <p className="footer-text">
+                  一个更克制的中文博客，写随笔、短记和那些没有立刻消失的念头。
+                </p>
+              </div>
+
+              <div className="footer-links">
+                <Link href="/writing">全部文章</Link>
+                <Link href="/diary">日记摘页</Link>
+                <Link href="/about">站点说明</Link>
+              </div>
+            </div>
+          </footer>
+        </div>
       </body>
     </html>
   );
