@@ -1058,3 +1058,132 @@ html.reading-fullscreen .article-summary {
   color: var(--ink);
 }
 
+/* ─── 阅读进度条 ─── */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  z-index: 100;
+  transition: width 80ms linear;
+  pointer-events: none;
+}
+
+/* ─── 导航当前页高亮 ─── */
+.site-nav a[data-active] {
+  color: var(--ink);
+}
+.site-nav a[data-active]::after {
+  transform: scaleX(1);
+}
+
+/* ─── 日记年份分组 ─── */
+.diary-year-nav {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 14px 0 28px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 0;
+}
+
+.year-anchor {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  transition: color 140ms, border-color 140ms;
+}
+.year-anchor:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.diary-year-group {
+  padding-top: 38px;
+}
+
+.diary-year-label {
+  font-family: var(--font-display), serif;
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(58, 42, 31, 0.18);
+  line-height: 1;
+  margin-bottom: 18px;
+  user-select: none;
+}
+
+/* ─── 暗色模式 ─── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #1a1410;
+    --paper: rgba(30, 22, 16, 0.85);
+    --paper-solid: #231a12;
+    --line: rgba(255, 220, 185, 0.1);
+    --ink: #f0e6d8;
+    --ink-soft: rgba(240, 230, 216, 0.75);
+    --muted: #9c8878;
+    --accent: #c47a56;
+    --accent-soft: rgba(196, 122, 86, 0.12);
+  }
+
+  body {
+    background:
+      radial-gradient(circle at top left, rgba(40, 28, 20, 0.9), transparent 32%),
+      radial-gradient(circle at 88% 12%, rgba(100, 60, 35, 0.16), transparent 18%),
+      linear-gradient(180deg, #1e1510 0%, #17110c 100%);
+  }
+
+  body::before {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 100% 44px, 44px 100%;
+  }
+
+  .site-header {
+    background: color-mix(in srgb, var(--background) 85%, transparent);
+  }
+
+  .solid-link {
+    background: var(--ink);
+    color: #1a1410;
+  }
+
+  .ghost-link {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .admin-shell {
+    background: #1a1410;
+  }
+
+  .admin-header {
+    background: #231a12;
+  }
+
+  .admin-field input,
+  .admin-field select,
+  .admin-field textarea {
+    background: #231a12;
+    color: var(--ink);
+  }
+
+  .diary-year-label {
+    -webkit-text-stroke: 1px rgba(240, 220, 190, 0.15);
+  }
+
+  .year-anchor {
+    border-color: rgba(255, 220, 185, 0.15);
+  }
+  .year-anchor:hover {
+    border-color: var(--ink);
+  }
+}
+

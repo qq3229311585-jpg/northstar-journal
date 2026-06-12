@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getAllPosts, getAdjacentPosts, getPostBySlug, parseBody } from "../../lib/db-posts";
 import { getPost, getAdjacentPosts as staticAdjacent, staticPosts } from "../../content";
 import { FullscreenButton } from "../../components/FullscreenButton";
+import { ReadingProgress } from "../../components/ReadingProgress";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -80,8 +81,14 @@ export default async function PostPage({ params }: Props) {
     next = adj.next ? { slug: adj.next.slug, title: adj.next.title } : null;
   }
 
+  // skip body[0] if it's just the title repeated
+  const displayBody = post.body[0]?.trim() === post.title.trim()
+    ? post.body.slice(1)
+    : post.body;
+
   return (
     <main className="shell article-shell-v2">
+      <ReadingProgress />
       <article className="article-layout">
         <aside className="article-rail">
           <Link href="/writing" className="back-link">← 返回</Link>
@@ -115,14 +122,13 @@ export default async function PostPage({ params }: Props) {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px' }}>
               <div style={{ flex: 1 }}>
                 <h1>{post.title}</h1>
-                <p className="article-summary">{post.summary}</p>
               </div>
               <FullscreenButton />
             </div>
           </header>
 
           <div className="article-prose">
-            {post.body.map((paragraph, i) => (
+            {displayBody.map((paragraph, i) => (
               <p key={i}>{paragraph}</p>
             ))}
           </div>

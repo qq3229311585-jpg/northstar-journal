@@ -3,6 +3,7 @@ import Link from "next/link";
 import { IBM_Plex_Mono } from "next/font/google";
 import { site } from "./content";
 import { GlobalFullscreen } from "./components/GlobalFullscreen";
+import { NavLinks } from "./components/NavLinks";
 import "./globals.css";
 
 // Only IBM Plex Mono goes through next/font (Latin-only, small).
@@ -54,11 +55,7 @@ export default function RootLayout({
                 <span className="brand-sub">把句子慢慢收起来</span>
               </Link>
 
-              <nav className="site-nav" aria-label="主导航">
-                <Link href="/writing">文章</Link>
-                <Link href="/diary">摘页</Link>
-                <Link href="/about">关于</Link>
-              </nav>
+              <NavLinks />
 
               <GlobalFullscreen />
             </div>

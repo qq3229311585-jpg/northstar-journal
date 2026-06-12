@@ -2,7 +2,7 @@ export const site = {
   name: "北辰笔记",
   description:
     "一个更克制的中文个人博客，写随笔、短记和那些没有立刻消失的念头。",
-  url: "http://blog.jiecaisongai.shop",
+  url: "https://blog.jiecaisongai.shop",
 };
 
 export type PostKind = "essay" | "diary";

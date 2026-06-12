@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAllPosts } from "../lib/db-posts";
 import { essayPosts } from "../content";
+import { cleanSummary } from "../lib/summary";
 
 export default async function WritingPage() {
   let posts: { slug: string; category: string; dateLabel: string; title: string; summary: string }[] = [];
@@ -30,7 +31,7 @@ export default async function WritingPage() {
     <main className="shell list-page">
       <div className="page-intro">
         <p className="section-kicker">全部文章</p>
-        <h1 className="page-title">把完整的文章收在这里，像一份慢慢变厚的目录。</h1>
+        <h1 className="page-title">完整写完的，慢慢收着。</h1>
       </div>
 
       <div className="editorial-list">
@@ -44,7 +45,7 @@ export default async function WritingPage() {
               </p>
               <h2>{post.title}</h2>
             </div>
-            <p className="row-summary">{post.summary}</p>
+            <p className="row-summary">{cleanSummary(post.summary, post.title)}</p>
           </Link>
         ))}
       </div>
